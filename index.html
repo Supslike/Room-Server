@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Server</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/satoshi.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <link rel="shortcut icon" href="./static/best girl.jpeg" type="image/x-icon">
+</head>
+<body>
+    <div class="first-page">
+        <div class="grid-wrap">
+            <div class="container third-span" id="actual-numbers">
+                <h2 class="slight-heading">Current Temperature: </h2>
+                <p id="currentTemp"><span class="material-symbols-outlined">thermometer</span> 0°C</p>
+                <h2 class="slight-heading">Current Humidity: </h2>
+                <p id="currentHumid"><span class="material-symbols-outlined">water_drop</span> 0%</p>
+            </div>
+            <div class="container fourth-span" id="average-counter">
+                <h2>Average: </h2>
+                <p id="avgTemp"><span class="material-symbols-outlined">thermometer</span> 0°C</p>
+                <p id="avgHumid"><span class="material-symbols-outlined">water_drop</span> 0%</p>
+            </div>
+            <div class="container half-span" id="temp-graph">
+                <h2>Temperature</h2>
+                <div id="temp-chart"></div>
+            </div>
+            <div class="container half-span" id="humidity-graph">
+                <h2>Humidity</h2>
+                <div id="humid-chart"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="settings">
+        <div class="setting-wrapper">
+            <div class="switch-settings">
+                <div class="switch-buttons">
+                    <h2><span class="material-symbols-outlined">volume_up</span> Sounds</h2>
+                    <label class="switch">
+                        <input type="checkbox" id="sound-button">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <br>
+                <div class="switch-buttons">
+                    <h2><span class="material-symbols-outlined">light_mode</span> Lights &nbsp;</h2>
+                    <label class="switch">
+                        <input type="checkbox" id="light-button">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <br>
+                <div class="reset-button">
+                    <button id="reset-record">Reset Records</button>
+                </div>        
+            </div>
+
+            <div class="type-setting">
+                <div class="typesetting">
+                    <h2><span class="material-symbols-outlined">timer</span> Time Update: </h2>
+                    <input type="number" id="timeupdate">
+                </div>
+                <br>
+                <div class="typesetting">
+                    <h2><span class="material-symbols-outlined">list</span> Max Records: </h2>
+                    <input type="number" id="maxrecord">
+                </div>
+                <br>
+                <div class="typesetting">
+                    <h2><span class="material-symbols-outlined">schedule</span> Average Detection: </h2>
+                    <input type="number" id="avgdetect">
+                </div>
+            </div>
+        </div>
+
+        <div class="submit-section">
+            <div class="passkey">
+                <h2>API Passkey: </h2>
+                <input type="text" id="API_PASSKEY" placeholder="Supslike #1">
+            </div>
+            <div class="submit-button">
+                <button id="submit-setting">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="records">
+        <table id="records-table">
+            <tr>
+                <th>Time</th>
+                <th>Temperature (°C)</th>
+                <th>Humidity (%)</th>
+            </tr>
+        </table>
+    </div>
+
+    <div class="display-msg" id="display-msg">
+        <div class="content-holder">
+            <div class="info-wrappers">
+                <h2 id="display-status">Success</h2>
+                <p id="display-description">You can now close this window</p>
+                <button id="close-display">OK!</button>
+            </div>
+            
+        </div>
+    </div>
+    <script src="./scripts/RoomServer.js"></script>
+</body>
+</html>
