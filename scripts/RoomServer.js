@@ -23,6 +23,8 @@ const LightButton = document.getElementById("light-button");
 const ResetButton = document.getElementById("reset-record");
 const RecordsTable = document.getElementById("records-table");
 
+const LastRuntime = document.getElementById("runtime");
+
 const FAILED = "rgb(255, 80, 80)";
 const SUCCESS = "rgb(47, 228, 47)";
 
@@ -92,6 +94,8 @@ async function FetchData() {
         }
 
         const avg = await avgFetch.json();
+
+        LastRuntime.innerText = "Last Setup: " + data["ping"]
         CurData = data["records"]
 
         try {
@@ -115,6 +119,9 @@ async function FetchData() {
 
             const NewRow = document.createElement("tr");
 
+            const NewNumber = document.createElement("td");
+            NewNumber.innerText = i + 1;
+
             const NewTime = document.createElement("td");
             NewTime.innerText = curRecord['time'];
 
@@ -124,6 +131,7 @@ async function FetchData() {
             const NewTemperature = document.createElement("td");
             NewTemperature.innerText = curRecord['data']["temperature"] + "°C";
 
+            NewRow.appendChild(NewNumber);
             NewRow.appendChild(NewTime);
             NewRow.appendChild(NewTemperature);
             NewRow.appendChild(NewHumidity);

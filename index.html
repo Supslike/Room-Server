@@ -36,6 +36,7 @@
     </div>
     
     <div class="settings">
+        <h2 id="runtime"></h2>
         <div class="setting-wrapper">
             <div class="switch-settings">
                 <div class="switch-buttons">
@@ -76,7 +77,6 @@
                 </div>
             </div>
         </div>
-
         <div class="submit-section">
             <div class="passkey">
                 <h2>API Passkey: </h2>
@@ -87,10 +87,10 @@
             </div>
         </div>
     </div>
-
     <div class="records">
         <table id="records-table">
             <tr>
+                <th>#</th>
                 <th>Time</th>
                 <th>Temperature (°C)</th>
                 <th>Humidity (%)</th>
@@ -105,7 +105,6 @@
                 <p id="display-description">You can now close this window</p>
                 <button id="close-display">OK!</button>
             </div>
-            
         </div>
     </div>
     <script src="./scripts/RoomServer.js"></script>
