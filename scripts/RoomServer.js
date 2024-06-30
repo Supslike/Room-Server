@@ -1,4 +1,4 @@
-const API_URL = "http://supslike.pythonanywhere.com/RoomServer/";
+const API_URL = "https://supslike.pythonanywhere.com/RoomServer/";
 
 const DisplayPanel = document.getElementById("display-msg");
 const CloseDisplay = document.getElementById("close-display");
