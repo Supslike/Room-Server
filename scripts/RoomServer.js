@@ -22,6 +22,7 @@ const SoundButton = document.getElementById("sound-button");
 const LightButton = document.getElementById("light-button");
 const ResetButton = document.getElementById("reset-record");
 const RecordsTable = document.getElementById("records-table");
+const ErrorsTable = document.getElementById("errors-table");
 
 const LastRuntime = document.getElementById("runtime");
 
@@ -65,6 +66,23 @@ function setPlaceholders() {
     TimeUpdate.placeholder = CurSetting["timeUpdate"];
     MaxRecord.placeholder = CurSetting["MaxRecords"];
     AverageDetect.placeholder = CurSetting["avgDetect"];
+}
+
+function getClock() {
+    const now = new Date();
+
+    const options = {
+        year: 'numeric',
+        month: 'long',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true,
+        timeZone: 'Asia/Shanghai'
+    };
+
+    const formattedDate = now.toLocaleString('en-US', options).replace("at", " - ");
+    return formattedDate;
 }
 
 async function FetchData() {
@@ -143,6 +161,62 @@ async function FetchData() {
             TemperatureRecord.push([MiniTime, curRecord['data']["temperature"]]);
             HumidityRecord.push([MiniTime, curRecord['data']["humidity"]]);
         }
+
+        const errorFetch = await fetch(API_URL + "bug");
+
+        if (!errorFetch.ok) {
+          displayMessage(FAILED, "Failed!", `Network response was not ok! \n\n ${errorFetch.statusText}`);
+          throw new Error("Network response was not OK! \n\n"  + errorFetch.statusText);
+        }
+
+        const ErrorData = await errorFetch.json();
+        
+        if (ErrorData["records"].length == 0) {
+            const NewRow = document.createElement("tr");
+
+            const NewNumber = document.createElement("td");
+            NewNumber.innerText = 0;
+
+            const NewTime = document.createElement("td");
+            NewTime.innerText = getClock();
+
+            const ErrorCode = document.createElement("td");
+            ErrorCode.innerText = 404;
+
+            const ErrorMsg = document.createElement("td");
+            ErrorMsg.innerText = "No Errors Found :)";
+
+            NewRow.appendChild(NewNumber);
+            NewRow.appendChild(NewTime);
+            NewRow.appendChild(ErrorCode);
+            NewRow.appendChild(ErrorMsg);
+            ErrorsTable.appendChild(NewRow);
+        }
+
+        for (let i = 0; i < ErrorData["records"].length; i++) {
+            let curRecord = ErrorData["records"][i]
+
+            const NewRow = document.createElement("tr");
+
+            const NewNumber = document.createElement("td");
+            NewNumber.innerText = i + 1;
+
+            const NewTime = document.createElement("td");
+            NewTime.innerText = curRecord['time'];
+
+            const ErrorCode = document.createElement("td");
+            ErrorCode.innerText = curRecord["error-code"];
+
+            const ErrorMsg = document.createElement("td");
+            ErrorMsg.innerText = curRecord["error-message"];
+
+            NewRow.appendChild(NewNumber);
+            NewRow.appendChild(NewTime);
+            NewRow.appendChild(ErrorCode);
+            NewRow.appendChild(ErrorMsg);
+            ErrorsTable.appendChild(NewRow);
+        }
+
         LoadCharts();
     }   
       
