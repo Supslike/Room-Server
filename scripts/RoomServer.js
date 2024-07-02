@@ -291,13 +291,6 @@ OUT_API_KEY.addEventListener("click", async function() {
             ResetButton.style.color = "white";
             ResetButton.innerText = "Reset Records";
 
-            const childNodes = RecordsTable.childNodes;
-
-            for (let i = childNodes.length - 1; i > 0; i--) {
-                const childNode = childNodes[i];
-                RecordsTable.removeChild(childNode);
-            }
-
             displayMessage(SUCCESS, "Success!", "Reloading the page in 3s.");
             sleep(3000);
             location.reload();
