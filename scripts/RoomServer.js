@@ -68,6 +68,10 @@ function setPlaceholders() {
     AverageDetect.placeholder = CurSetting["avgDetect"];
 }
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function getClock() {
     const now = new Date();
 
@@ -293,8 +297,13 @@ OUT_API_KEY.addEventListener("click", async function() {
                 const childNode = childNodes[i];
                 RecordsTable.removeChild(childNode);
             }
+
+            displayMessage(SUCCESS, "Success!", "Reloading the page in 3s.");
+            sleep(3000);
+            location.reload();
+            return;
         }
-        displayMessage(SUCCESS, "Success!", "You can now close this panel.")
+        displayMessage(SUCCESS, "Success!", "You can now close this panel.");
         setPlaceholders();
     } 
       
